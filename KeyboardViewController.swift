@@ -106,7 +106,7 @@ public enum UnicodeMode:Int32 {
 class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate {
     let dragOverButtons = true
     let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘"]
-    let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";"]
+    let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";", "!"]
     let metrical = ["×", "‒", "⏑", "⏒", "⏓", "⏔", "⏕", "⏖","|", "‖"]
     var keys:[[String]] = []
     var keysUpper:[[String]] = []
@@ -523,7 +523,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                                ["CP", "123", "KB", "space", ".", "enter"]]
  
         keysUpper = [["῾", "᾿", "´", "`", "¨", "˘", "ͺ", "’","—", "xxx"],
-                                ["ς", "Ε", "Ρ", "Τ", "Υ", "Θ", "Ι", "Ο", "Π"],
+                                ["!", "Ε", "Ρ", "Τ", "Υ", "Θ", "Ι", "Ο", "Π"],
                                 ["Α", "Σ", "Δ", "Φ", "Γ", "Η", "Ξ", "Κ", "Λ"],
                                 ["Ζ", "Χ", "Ψ", "Ω", "Β", "Ν", "Μ" , "BK" ],
                                 ["CP", "123", "KB", "space", ";", "enter"]]
