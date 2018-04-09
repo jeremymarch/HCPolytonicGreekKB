@@ -15,6 +15,7 @@ import UIKit
 class HCKeyboardView: UIView {
     var buttons:[[UIButton]] = []
     var buttonWidth:CGFloat = 0
+    var extraBottomPadding:CGFloat = 0
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -65,7 +66,7 @@ class HCKeyboardView: UIView {
                 maxColumns = 9
             }
             buttonWidth = (viewWidth - (buttonHSpacing * (CGFloat(maxColumns) + 1.0))) / CGFloat(maxColumns)
-            buttonHeight = (viewHeight - (buttonVSpacing * (CGFloat(maxRows) + 1.0))) / CGFloat(maxRows)
+            buttonHeight = (viewHeight - extraBottomPadding - (buttonVSpacing * (CGFloat(maxRows) + 1.0))) / CGFloat(maxRows)
             
             if c < maxColumns
             {
