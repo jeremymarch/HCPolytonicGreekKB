@@ -104,6 +104,8 @@ public enum UnicodeMode:Int32 {
 }
 
 class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate {
+    var heightOverride:CGFloat = 0.0
+    var forceLowercase = false
     let dragOverButtons = true
     let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘"]
     let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";", "!"]
@@ -495,7 +497,6 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         }
         else
         {
-            
             if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
             {
                 //iPhone X
@@ -518,6 +519,10 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 portraitHeight = 250.0
                 landscapeHeight = 196.0
             }
+        }
+        if heightOverride > 0
+        {
+            portraitHeight = heightOverride
         }
         
         if dragOverButtons == true
@@ -558,6 +563,8 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     
     func setButtons(keys:[[String]])
     {
+        clearKeys()
+        
         var topRowButtonType = 1
         for (i,row) in keys.enumerated()
         {
@@ -850,7 +857,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     }
     
     @objc func keyPressed(button: UIButton) {
-        let key = button.titleLabel!.text
+        var key = button.titleLabel!.text
         if key == nil
         {
             return
@@ -862,6 +869,10 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         }
         else
         {
+            if forceLowercase //used by philolog.us dictionary app
+            {
+                key = key?.lowercased()
+            }
             (textDocumentProxy as UIKeyInput).insertText("\(key!)")
         }
     }
@@ -955,6 +966,15 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         
         changeKeys(keys: k)
     }
+    
+    func clearKeys()
+    {
+        for v in hv.subviews {
+            v.removeFromSuperview()
+        }
+        hv.buttons = []
+    }
+    
     var buttonFont:String?
     func changeKeys(keys:[[String]])
     {
