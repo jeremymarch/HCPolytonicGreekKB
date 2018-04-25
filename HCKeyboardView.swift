@@ -123,7 +123,7 @@ class HCKeyboardView: UIView {
                 }
             }
             
-            for (j, key) in row.enumerated()
+            for (_, key) in row.enumerated()
             {
                 if key.titleLabel?.text == "xxx"
                 {
