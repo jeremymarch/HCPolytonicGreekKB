@@ -53,17 +53,25 @@ class HCKeyboardView: UIView {
 
         let maxRows = buttons.count
         var buttonHSpacing:CGFloat = 5.0
-        let buttonVSpacing:CGFloat = 5.0
-        if maxColumns > 9
-        {
-            buttonHSpacing = 4.0
-        }
+        var buttonVSpacing:CGFloat = 5.0
         
         var c = 0
         var xoffstart:CGFloat = 0
         var xoff:CGFloat = 0
         buttonWidth = 0
         var buttonHeight:CGFloat = 0
+        
+        var isHC = false
+        if buttons[0][0].titleLabel?.text == "MF"
+        {
+            isHC = true
+            buttonHSpacing = 6.0
+            buttonVSpacing = 7.0
+        }
+        else if maxColumns > 9
+        {
+            buttonHSpacing = 4.0
+        }
         
         let nonSmooshButtonWidth = (viewWidth - (buttonHSpacing * (CGFloat(9) + 1.0))) / CGFloat(9)
         
@@ -121,6 +129,10 @@ class HCKeyboardView: UIView {
                     }
                     xoff -= (buttonWidth * 2.6) - buttonWidth
                 }
+                if a.titleLabel?.text == "MF"
+                {
+                    xoff = buttonHSpacing
+                }
             }
             
             for (_, key) in row.enumerated()
@@ -137,10 +149,23 @@ class HCKeyboardView: UIView {
                         key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: delButtonWidth, height: buttonHeight)
                         xoff += buttonHSpacing + (delButtonWidth)
                     }
+                    else if key is HCMFButton
+                    {
+                        key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: delButtonWidth, height: buttonHeight)
+                        xoff += buttonHSpacing + (delButtonWidth)
+                    }
                     else if key.titleLabel?.text == "enter" || key.titleLabel?.text == "space"
                     {
-                        key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: realButtonWidth * 2.6, height: buttonHeight)
-                        xoff += buttonHSpacing + (realButtonWidth * 2.6)
+                        if isHC
+                        {
+                            key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: realButtonWidth * 1.9, height: buttonHeight)
+                            xoff += buttonHSpacing + (realButtonWidth * 2.6)
+                        }
+                        else
+                        {
+                            key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: realButtonWidth * 2.6, height: buttonHeight)
+                            xoff += buttonHSpacing + (realButtonWidth * 2.6)
+                        }
                     }
                     else
                     {

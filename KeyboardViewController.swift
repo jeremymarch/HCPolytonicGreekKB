@@ -125,6 +125,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
 
     var tic:Int = 0
     
+    var mfButton:HCMFButton? = nil
     var deleteButton:UIButton? = nil
     var globeButton:UIButton? = nil
     var capsLockButton:HCCapsLockButton? = nil
@@ -217,6 +218,15 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                         b.sendActions(for: .touchUpOutside)
                     }
                 }
+                /*
+                else if let a = b as? HCMFButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
+                */
             }
         }
     }
@@ -292,6 +302,8 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        mfButton?.reset()
         
         loadDefaults()
         //this makes sure the keyboard is right height when first loaded
@@ -669,6 +681,28 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                     
                     b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
                 }
+                else if key == "MF"
+                {
+                    b = HCMFButton()
+                    mfButton = b as? HCMFButton
+                    buttons.append(b)
+                    
+                    b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
+                    
+                    if UIDevice.current.userInterfaceIdiom == .pad
+                    {
+                        b.layer.cornerRadius = HopliteConstants.ipadRadius
+                    }
+                    else
+                    {
+                        b.layer.cornerRadius = HopliteConstants.normalRadius
+                    }
+                    b.setTitle(key, for: [])
+                    b.setTitleColor(UIColor.white, for: [])
+                    
+                    //b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+                }
                 else if key == "space"
                 {
                     b = HCSpaceButton()
@@ -991,7 +1025,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 
                 let key = k
                 
-                if key != "enter" && key != "KB" && key != "CP" && key != "space" && key != "BK"
+                if key != "enter" && key != "KB" && key != "CP" && key != "space" && key != "BK" && key != "MF"
                 {
                     let b = hv.buttons[i][j] as! HCButton
                     punc = false
