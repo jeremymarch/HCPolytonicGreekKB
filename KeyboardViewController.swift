@@ -107,8 +107,8 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     var heightOverride:CGFloat = 0.0
     var forceLowercase = false
     let dragOverButtons = true
-    let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘"]
-    let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";", "!"]
+    let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘", "( )"]
+    let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "·", ",", ";", "!"]
     let metrical = ["×", "‒", "⏑", "⏒", "⏓", "⏔", "⏕", "⏖","|", "‖"]
     var keys:[[String]] = []
     var keysUpper:[[String]] = []
@@ -604,6 +604,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 }
                 else if accents.contains(key)
                 {
+                                        print("a: " + key)
                     //b = HCAccentButton(buttonType:1)
                     b = HCButton(buttonType:topRowButtonType, bgColor:HopliteConstants.accentBGColor, textColor:HopliteConstants.accentTextColor, bgColorDown:HopliteConstants.accentBGColorDown, textColorDown:HopliteConstants.accentTextColorDown)
                     
@@ -812,7 +813,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         {
             accent = 7
         }
-        else if whichAccent == "()" //surrounding parentheses
+        else if whichAccent == "( )" //surrounding parentheses
         {
             accent = 8
         }
@@ -1087,6 +1088,10 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
                     }
+                    else if key == "( )"
+                    {
+                        accent = true
+                    }
                     else if puncs.contains(key)
                     {
                         punc = true
@@ -1181,7 +1186,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         else
         {
             let alertController = UIAlertController(title: NSLocalizedString("Globe Key",comment:""), message: NSLocalizedString("Outside of this app, pressing the globe key will change to a different keyboard.",comment:""), preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title:     NSLocalizedString("Ok", comment: ""), style: .default, handler: { (pAlert) in
+            let defaultAction = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: { (pAlert) in
                 //Do whatever you wants here
             })
             alertController.addAction(defaultAction)
