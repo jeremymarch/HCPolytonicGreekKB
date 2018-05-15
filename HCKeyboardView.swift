@@ -82,6 +82,10 @@ class HCKeyboardView: UIView {
         {
             delButtonWidth = (viewWidth - (buttonHSpacing * (CGFloat(9) + 1.0))) / CGFloat(9)  * 1.36
         }
+        else if isHC
+        {
+            delButtonWidth = buttonWidth
+        }
         else
         {
             delButtonWidth = buttonHeight
@@ -151,15 +155,15 @@ class HCKeyboardView: UIView {
                     }
                     else if key is HCMFButton
                     {
-                        key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: delButtonWidth, height: buttonHeight)
-                        xoff += buttonHSpacing + (delButtonWidth)
+                        key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: buttonHeight, height: buttonHeight)
+                        xoff += buttonHSpacing + (buttonHeight)
                     }
                     else if key.titleLabel?.text == "enter" || key.titleLabel?.text == "space"
                     {
                         if isHC
                         {
                             key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: realButtonWidth * 1.9, height: buttonHeight)
-                            xoff += buttonHSpacing + (realButtonWidth * 2.6)
+                            xoff += buttonHSpacing + (realButtonWidth * 1.9)
                         }
                         else
                         {
