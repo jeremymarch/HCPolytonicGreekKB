@@ -59,7 +59,7 @@ public struct HopliteConstants{
     static let normalRadius:CGFloat = 4.0
     static let ipadRadius:CGFloat = 6.0
 }
-
+/*
 public struct HopliteConstants1{
     static let constX=1;
     
@@ -96,7 +96,7 @@ public struct HopliteConstants1{
     static let deleteInnerColorDown = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
     static let deleteXColorDown = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
 }
-
+*/
 public enum UnicodeMode:Int32 {
     case PreComposedNoPUA = 0
     case PreComposedPUA = 1
@@ -104,6 +104,11 @@ public enum UnicodeMode:Int32 {
 }
 
 class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate {
+    var accentBGColor = HopliteConstants.accentBGColor
+    var accentTextColor = HopliteConstants.accentTextColor
+    var accentBGColorDown = HopliteConstants.accentBGColorDown
+    var accentTextColorDown = HopliteConstants.accentTextColorDown
+    
     var heightOverride:CGFloat = 0.0
     var forceLowercase = false
     let dragOverButtons = true
@@ -604,9 +609,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 }
                 else if accents.contains(key)
                 {
-                                        print("a: " + key)
-                    //b = HCAccentButton(buttonType:1)
-                    b = HCButton(buttonType:topRowButtonType, bgColor:HopliteConstants.accentBGColor, textColor:HopliteConstants.accentTextColor, bgColorDown:HopliteConstants.accentBGColorDown, textColorDown:HopliteConstants.accentTextColorDown)
+                    b = HCButton(buttonType:topRowButtonType, bgColor:accentBGColor, textColor:accentTextColor, bgColorDown:accentBGColorDown, textColorDown:accentTextColorDown)
                     
                     b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
@@ -1124,10 +1127,10 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                         {
                             b.btype = 0
                         }
-                        b.vbgColor = HopliteConstants.accentBGColor
-                        b.vtextColor = HopliteConstants.accentTextColor
-                        b.vbgDownColor = HopliteConstants.accentBGColorDown
-                        b.vtextDownColor = HopliteConstants.accentTextColorDown
+                        b.vbgColor = accentBGColor
+                        b.vtextColor = accentTextColor
+                        b.vbgDownColor = accentBGColorDown
+                        b.vtextDownColor = accentTextColorDown
                     }
                     else if punc
                     {

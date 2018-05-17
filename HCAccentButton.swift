@@ -13,6 +13,7 @@
 
 import UIKit
 
+
 class HCAccentButton: UIButton {
     /*
     var bgColor:UIColor = .gray
@@ -20,6 +21,7 @@ class HCAccentButton: UIButton {
     var textColor:UIColor = .white
     var textDownColor:UIColor = .white
     */
+    var kb:KeyboardViewController?
     var bgColor = HopliteConstants.accentBGColor
     var textColor = HopliteConstants.accentTextColor
     var bgDownColor = HopliteConstants.accentBGColorDown
@@ -27,8 +29,9 @@ class HCAccentButton: UIButton {
     
     var btype: Int? = nil
     
-    required init(buttonType: Int = 0) {
+    required init(buttonType: Int = 0, kbparent:KeyboardViewController) {
         // set myValue before super.init is called
+        kb = kbparent
         self.btype = buttonType
         
         super.init(frame: .zero)
