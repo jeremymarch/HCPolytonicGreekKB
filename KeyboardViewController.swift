@@ -1042,54 +1042,72 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 20
                     }
                     else if key == "˜"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 20
                     }
                     else if key == "`"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 20
                     }
                     else if key == "¯"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(16, 0, 0, 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 16
                     }
                     else if key == "῾"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 12
                     }
                     else if key == "᾿"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 12
                     }
                     else if key == "ͺ"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0)
+                        b.fontSize = 40
+                        b.edgeOffset = -30
                     }
                     else if key == "¨"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 20
                     }
                     else if key == "˘"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 20
                     }
                     else if key == "( )"
                     {

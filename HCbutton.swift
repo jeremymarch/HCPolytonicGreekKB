@@ -30,8 +30,9 @@ class HCButton: UIButton {
     
     let buttonRadius:CGFloat = 4.0
     
-    let fontSize:CGFloat = 24.0
-    let downFontSize:CGFloat = 36.0
+    var fontSize:CGFloat = 24.0
+    var edgeOffset:CGFloat = 0.0
+    var downFontSize:CGFloat = 36.0
     var buttonDown:Bool = false
     let buttonTail:CGFloat = 4
     let buttonDownWidthFactor:CGFloat = 1.66
@@ -107,7 +108,7 @@ class HCButton: UIButton {
                 let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
                 self.frame = buttonFrame
                 self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
-                self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+                self.titleEdgeInsets = UIEdgeInsetsMake(edgeOffset, 0, 0, 0);
             }
             setTitleColor(vtextColor, for: [])
             setNeedsDisplay()
@@ -144,7 +145,7 @@ class HCButton: UIButton {
                 let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
                 self.frame = buttonFrame
                 
-                self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+                self.titleEdgeInsets = UIEdgeInsetsMake(edgeOffset, 0, 0, 0);
                 self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
             }
             setTitleColor(vtextColor, for: [])
@@ -180,6 +181,9 @@ class HCButton: UIButton {
         {
             if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
             {
+                //fontSize = self.titleLabel!.font.pointSize
+                downFontSize = fontSize * 1.3
+                
                 let width = self.frame.size.width * buttonDownWidthFactor
                 let height = (self.frame.size.height * buttonDownHeightFactor) + buttonTail
                 let x = self.frame.origin.x - (((self.frame.size.width * buttonDownWidthFactor) - self.frame.size.width) / 2)
@@ -188,7 +192,7 @@ class HCButton: UIButton {
                 let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
                 self.frame = buttonFrame
                 
-                self.titleEdgeInsets = UIEdgeInsetsMake(-50, 0, 0, 0);
+                self.titleEdgeInsets = UIEdgeInsetsMake(-50 + edgeOffset, 0, 0, 0);
                 self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: downFontSize)
                 setTitleColor(vtextColor, for: [])
             }
