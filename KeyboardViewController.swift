@@ -188,6 +188,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                         b.sendActions(for: .touchUpOutside)
                     }
                 }
+                else if let a = b as? HCMFButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
                 else if let a = b as? HCDeleteButton
                 {
                     if a.buttonDown
@@ -255,7 +262,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         if gestureRecognizer.state == .changed
         {
             //NSLog("changed")
-            if draggedView is HCButton || draggedView is HCDeleteButton || draggedView is HCEnterButton || draggedView is HCSpaceButton || draggedView is HCGlobeButton || draggedView is HCCapsLockButton && self.currentButton == nil {
+            if draggedView is HCMFButton || draggedView is HCButton || draggedView is HCDeleteButton || draggedView is HCEnterButton || draggedView is HCSpaceButton || draggedView is HCGlobeButton || draggedView is HCCapsLockButton && self.currentButton == nil {
                 self.currentButton = draggedView as? UIButton
                 /*
                  if self.currentButton != nil
@@ -291,7 +298,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 {
                     self.currentButton?.sendActions(for: .touchUpInside)
                 }
-                else if self.currentButton is HCDeleteButton
+                else if self.currentButton is HCDeleteButton || self.currentButton is HCMFButton
                 {
                     self.currentButton?.sendActions(for: .touchDown) //to delete a character
                     self.currentButton?.sendActions(for: .touchUpOutside) //to reset up state
