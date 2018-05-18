@@ -230,15 +230,6 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                         b.sendActions(for: .touchUpOutside)
                     }
                 }
-                /*
-                else if let a = b as? HCMFButton
-                {
-                    if a.buttonDown
-                    {
-                        b.sendActions(for: .touchUpOutside)
-                    }
-                }
-                */
             }
         }
     }

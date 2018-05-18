@@ -50,7 +50,7 @@ class HCMFButton: UIButton {
     }
     
     @objc func touchUpInside(sender: UIButton!) {
-        print("touchUpInside")
+
         isDepressed = true
         buttonDown = false
         layer.borderColor = hcorange.cgColor
@@ -63,7 +63,7 @@ class HCMFButton: UIButton {
     }
     
     @objc func touchUpOutside(sender: UIButton!) {
-        print("touchUpOutside")
+
         isDepressed = false
         buttonDown = false
         layer.borderColor = nil
@@ -75,7 +75,7 @@ class HCMFButton: UIButton {
     }
     
     @objc func touchDown(sender: UIButton!) {
-        print("touchDown")
+
         isDepressed = true
         buttonDown = true
         layer.borderColor = hcorange.cgColor
