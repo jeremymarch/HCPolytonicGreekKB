@@ -413,13 +413,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         else
         {
             // Fallback for ios 8.0
-            let leftC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0)
+            let leftC = NSLayoutConstraint(item: hv, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.inputView, attribute: NSLayoutConstraint.Attribute.left, multiplier: 1.0, constant: 0)
             
-            let topC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0)
+            let topC = NSLayoutConstraint(item: hv, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.inputView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1.0, constant: 0)
             
-            let rightC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 0)
+            let rightC = NSLayoutConstraint(item: hv, attribute: NSLayoutConstraint.Attribute.right, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.inputView, attribute: NSLayoutConstraint.Attribute.right, multiplier: 1.0, constant: 0)
             
-            let bottomC = NSLayoutConstraint(item: hv, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.inputView, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0)
+            let bottomC = NSLayoutConstraint(item: hv, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.inputView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 0)
             
             self.inputView?.addConstraints([leftC,topC,rightC,bottomC])
         }
@@ -884,14 +884,14 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     
     @objc func longDeletePressGesture(gestureReconizer: UILongPressGestureRecognizer) {
         
-        if ( gestureReconizer.state == UIGestureRecognizerState.began )
+        if ( gestureReconizer.state == UIGestureRecognizer.State.began )
         {
             self.deleteHoldTimer = Timer.scheduledTimer(timeInterval: 0.085, target: self, selector: #selector(backSpacePressed(_:)), userInfo: nil, repeats: true)
             
             let theRunLoop = RunLoop.current
-            theRunLoop.add(self.deleteHoldTimer!, forMode: RunLoopMode.defaultRunLoopMode)
+            theRunLoop.add(self.deleteHoldTimer!, forMode: RunLoop.Mode.default)
         }
-        else if ( gestureReconizer.state == UIGestureRecognizerState.ended )
+        else if ( gestureReconizer.state == UIGestureRecognizer.State.ended )
         {
             self.deleteHoldTimer!.invalidate();
             self.deleteHoldTimer = nil
@@ -997,61 +997,61 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                     punc = false
                     accent = false
                     other = false
-                    b.setTitle(keys[i][j], for: UIControlState())
+                    b.setTitle(keys[i][j], for: UIControl.State())
                     
                     if key == "´"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
                     }
                     else if key == "˜"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
                     }
                     else if key == "`"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
                     }
                     else if key == "¯"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(16, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
                     }
                     else if key == "῾"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
                     }
                     else if key == "᾿"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(12, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
                     }
                     else if key == "ͺ"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(-30, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
                     }
                     else if key == "¨"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
                     }
                     else if key == "˘"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
                     }
                     else if puncs.contains(key)
                     {
@@ -1066,12 +1066,12 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                     else if metrical.contains(key)
                     {
                         b.titleLabel!.font = UIFont(name: "NewAthenaUnicode", size: fontSize)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                     }
                     else
                     {
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: fontSize)
-                        b.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+                        b.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                     }
                     
                     if accent

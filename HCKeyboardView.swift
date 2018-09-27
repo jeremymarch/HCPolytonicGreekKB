@@ -163,7 +163,7 @@ class HCKeyboardView: UIView {
                             let y2 = ((CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing) - height2 + buttonHeight + aa!.buttonTail
                             
                             key.frame = CGRect(x: x2, y: y2, width: width2, height: height2)
-                            key.superview?.bringSubview(toFront: key)
+                            key.superview?.bringSubviewToFront(key)
                             xoff += (buttonHSpacing + realButtonWidth)
                         }
                         else

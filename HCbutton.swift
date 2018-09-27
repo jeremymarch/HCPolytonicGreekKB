@@ -107,7 +107,7 @@ class HCButton: UIButton {
                 let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
                 self.frame = buttonFrame
                 self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
-                self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+                self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
             }
             setTitleColor(vtextColor, for: [])
             setNeedsDisplay()
@@ -144,7 +144,7 @@ class HCButton: UIButton {
                 let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
                 self.frame = buttonFrame
                 
-                self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+                self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
                 self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
             }
             setTitleColor(vtextColor, for: [])
@@ -188,7 +188,7 @@ class HCButton: UIButton {
                 let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
                 self.frame = buttonFrame
                 
-                self.titleEdgeInsets = UIEdgeInsetsMake(-50, 0, 0, 0);
+                self.titleEdgeInsets = UIEdgeInsets(top: -50, left: 0, bottom: 0, right: 0);
                 self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: downFontSize)
                 setTitleColor(vtextColor, for: [])
             }
