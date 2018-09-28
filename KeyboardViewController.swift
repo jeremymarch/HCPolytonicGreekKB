@@ -104,7 +104,8 @@ public enum UnicodeMode:Int32 {
 }
 
 class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate {
-    var heightOverride:CGFloat = 0.0
+    var portraitHeightOverride:CGFloat = 0.0
+    var landscapeHeightOverride:CGFloat = 0.0
     var forceLowercase = false
     let dragOverButtons = true
     let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘"]
@@ -520,9 +521,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 landscapeHeight = 196.0
             }
         }
-        if heightOverride > 0
+        if portraitHeightOverride > 0
         {
-            portraitHeight = heightOverride
+            portraitHeight = portraitHeightOverride
+        }
+        if landscapeHeightOverride > 0
+        {
+            landscapeHeight = landscapeHeightOverride
         }
         
         if dragOverButtons == true
