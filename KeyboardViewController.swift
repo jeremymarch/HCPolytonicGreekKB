@@ -498,9 +498,31 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         }
         else
         {
-            if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+            if UIScreen.main.nativeBounds.height == 2688.0 && UIScreen.main.nativeBounds.width == 1242.0
             {
-                //iPhone X
+                //iPhone XS Max
+                portraitHeight = 250.0
+                if appExt == false
+                {
+                    portraitHeight = 280.0
+                    hv.extraBottomPadding = 30.0
+                }
+                landscapeHeight = 176.0
+            }
+            else if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
+            {
+                //iPhone X, XS
+                portraitHeight = 250.0
+                if appExt == false
+                {
+                    portraitHeight = 280.0
+                    hv.extraBottomPadding = 30.0
+                }
+                landscapeHeight = 176.0
+            }
+            else if UIScreen.main.nativeBounds.height == 1792.0 && UIScreen.main.nativeBounds.width == 828.0
+            {
+                //iPhone XR
                 portraitHeight = 250.0
                 if appExt == false
                 {
