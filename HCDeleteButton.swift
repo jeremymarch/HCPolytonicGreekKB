@@ -16,14 +16,14 @@ import UIKit
 class HCDeleteButton: UIButton {
     var device:Int?
     var buttonDown:Bool = false
- /*
-    var deleteBGColor:UIColor           = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
-    var deleteInnerColor:UIColor        = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
-    var deleteXColor:UIColor            = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
-    var deleteBGColorDown:UIColor       = UIColor.white
-    var deleteInnerColorDown:UIColor    = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
-    var deleteXColorDown:UIColor        = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
-  */
+    /*
+     var deleteBGColor:UIColor           = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+     var deleteInnerColor:UIColor        = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
+     var deleteXColor:UIColor            = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+     var deleteBGColorDown:UIColor       = UIColor.white
+     var deleteInnerColorDown:UIColor    = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+     var deleteXColorDown:UIColor        = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
+     */
     var deleteBGColor:UIColor           = HopliteConstants.deleteBGColor
     var deleteInnerColor:UIColor        = HopliteConstants.deleteInnerColor
     var deleteXColor:UIColor            = HopliteConstants.deleteXColor
@@ -97,7 +97,7 @@ class HCDeleteButton: UIButton {
         {
             outerPath = UIBezierPath(roundedRect: outerRect, cornerRadius: buttonRadius).cgPath
         }
-
+        
         //up state
         if buttonDown == true
         {

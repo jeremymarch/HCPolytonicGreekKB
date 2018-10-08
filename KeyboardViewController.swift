@@ -50,7 +50,7 @@ public struct HopliteConstants{
     static let deleteBGColorDown = UIColor.white
     static let deleteInnerColorDown = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
     static let deleteXColorDown = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
-
+    
     //capslock, globe, backspace
     static let otherBGColor = UIColor.lightGray
     static let otherTextColor = UIColor.black
@@ -59,44 +59,44 @@ public struct HopliteConstants{
     static let normalRadius:CGFloat = 4.0
     static let ipadRadius:CGFloat = 6.0
 }
-
-public struct HopliteConstants1{
-    static let constX=1;
-    
-    static let enterBGColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
-    static let enterTextColor = UIColor.white
-    static let enterBGColorDown = UIColor.white
-    static let enterTextColorDown = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
-    
-    static let keyBGColor = UIColor.white
-    static let keyTextColor = UIColor.black
-    static let keyBGColorDown = UIColor.black
-    static let keyTextColorDown = UIColor.white
-    
-    static let accentBGColor = UIColor.init(red: 0/255.0, green: 150.0/255.0, blue: 70/255.0, alpha: 1.0)
-    static let accentTextColor = UIColor.white
-    static let accentBGColorDown = UIColor.black
-    static let accentTextColorDown = UIColor.white
-    
-    static let punctuationBGColor = UIColor.orange
-    static let punctuationTextColor = UIColor.black
-    static let punctuationBGColorDown = UIColor.black
-    static let punctuationTextColorDown = UIColor.white
-    
-    //capslock, globe, backspace
-    static let otherKeyBGColor = UIColor.white
-    static let otherKeyTextColor = UIColor.black
-    static let otherKeyBGColorDown = UIColor.black
-    static let otherKeyTextColorDown = UIColor.white
-    
-    static let deleteBGColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
-    static let deleteInnerColor = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
-    static let deleteXColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
-    static let deleteBGColorDown = UIColor.white
-    static let deleteInnerColorDown = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
-    static let deleteXColorDown = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
-}
-
+/*
+ public struct HopliteConstants1{
+ static let constX=1;
+ 
+ static let enterBGColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+ static let enterTextColor = UIColor.white
+ static let enterBGColorDown = UIColor.white
+ static let enterTextColorDown = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+ 
+ static let keyBGColor = UIColor.white
+ static let keyTextColor = UIColor.black
+ static let keyBGColorDown = UIColor.black
+ static let keyTextColorDown = UIColor.white
+ 
+ static let accentBGColor = UIColor.init(red: 0/255.0, green: 150.0/255.0, blue: 70/255.0, alpha: 1.0)
+ static let accentTextColor = UIColor.white
+ static let accentBGColorDown = UIColor.black
+ static let accentTextColorDown = UIColor.white
+ 
+ static let punctuationBGColor = UIColor.orange
+ static let punctuationTextColor = UIColor.black
+ static let punctuationBGColorDown = UIColor.black
+ static let punctuationTextColorDown = UIColor.white
+ 
+ //capslock, globe, backspace
+ static let otherKeyBGColor = UIColor.white
+ static let otherKeyTextColor = UIColor.black
+ static let otherKeyBGColorDown = UIColor.black
+ static let otherKeyTextColorDown = UIColor.white
+ 
+ static let deleteBGColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+ static let deleteInnerColor = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
+ static let deleteXColor = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+ static let deleteBGColorDown = UIColor.white
+ static let deleteInnerColorDown = UIColor.init(red: 110/255.0, green: 110/255.0, blue: 128/255.0, alpha: 1.0)
+ static let deleteXColorDown = UIColor.init(red: 229/255.0, green: 230/255.0, blue: 233/255.0, alpha: 1.0)
+ }
+ */
 public enum UnicodeMode:Int32 {
     case PreComposedNoPUA = 0
     case PreComposedPUA = 1
@@ -104,12 +104,17 @@ public enum UnicodeMode:Int32 {
 }
 
 class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate {
+    var accentBGColor = HopliteConstants.accentBGColor
+    var accentTextColor = HopliteConstants.accentTextColor
+    var accentBGColorDown = HopliteConstants.accentBGColorDown
+    var accentTextColorDown = HopliteConstants.accentTextColorDown
+    
     var portraitHeightOverride:CGFloat = 0.0
     var landscapeHeightOverride:CGFloat = 0.0
     var forceLowercase = false
     let dragOverButtons = true
-    let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘"]
-    let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "()", "·", ",", ";", "!"]
+    let accents = ["´", "˜", "`", "¯", "῾", "᾿", "ͺ", "¨", "˘", "( )"]
+    let puncs = ["—", ".", "’", "_", "-", "/", "\"", "\\", "}", "{", ">", "<", "'", "=", "+", "#", "*", "]", "[", "(", ")", "·", ",", ";", "!"]
     let metrical = ["×", "‒", "⏑", "⏒", "⏓", "⏔", "⏕", "⏖","|", "‖"]
     var keys:[[String]] = []
     var keysUpper:[[String]] = []
@@ -123,9 +128,10 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     let keyTextColor = UIColor.black
     let useAnimation:Bool = false
     var deleteHoldTimer:Timer? = nil
-
+    
     var tic:Int = 0
     
+    var mfButton:HCMFButton? = nil
     var deleteButton:UIButton? = nil
     var globeButton:UIButton? = nil
     var capsLockButton:HCCapsLockButton? = nil
@@ -136,7 +142,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     
     let fontSize:CGFloat = 24.0
     let smallerFontSize:CGFloat = 20.0
-
+    
     var portraitHeight:CGFloat = 250.0
     var landscapeHeight:CGFloat = 196.0
     
@@ -159,17 +165,17 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     var topRowButtonDepressNotAppExt = true
     /* true means allow top row buttons to expand above top line, false means prevent it.
      Only when embedded in an app/not an app extension.
-    */
+     */
     
     /*
      //best to update constraint in place rather than in updateConstraints() if possible, see:
      //https://developer.apple.com/reference/uikit/uiviewcontroller/1621379-updateviewconstraints
-    override func updateViewConstraints() {
-        // Add custom view sizing constraints here
-
-        super.updateViewConstraints()
-    }
-    */
+     override func updateViewConstraints() {
+     // Add custom view sizing constraints here
+     
+     super.updateViewConstraints()
+     }
+     */
     
     func resetButtons(button:UIButton?)
     {
@@ -177,6 +183,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             if button == nil || b != button //for all except the one passed in, if any
             {
                 if let a = b as? HCButton
+                {
+                    if a.buttonDown
+                    {
+                        b.sendActions(for: .touchUpOutside)
+                    }
+                }
+                else if let a = b as? HCMFButton
                 {
                     if a.buttonDown
                     {
@@ -241,7 +254,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         if gestureRecognizer.state == .changed
         {
             //NSLog("changed")
-            if draggedView is HCButton || draggedView is HCDeleteButton || draggedView is HCEnterButton || draggedView is HCSpaceButton || draggedView is HCGlobeButton || draggedView is HCCapsLockButton && self.currentButton == nil {
+            if draggedView is HCMFButton || draggedView is HCButton || draggedView is HCDeleteButton || draggedView is HCEnterButton || draggedView is HCSpaceButton || draggedView is HCGlobeButton || draggedView is HCCapsLockButton && self.currentButton == nil {
                 self.currentButton = draggedView as? UIButton
                 /*
                  if self.currentButton != nil
@@ -277,7 +290,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 {
                     self.currentButton?.sendActions(for: .touchUpInside)
                 }
-                else if self.currentButton is HCDeleteButton
+                else if self.currentButton is HCDeleteButton || self.currentButton is HCMFButton
                 {
                     self.currentButton?.sendActions(for: .touchDown) //to delete a character
                     self.currentButton?.sendActions(for: .touchUpOutside) //to reset up state
@@ -294,6 +307,8 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        mfButton?.reset()
+        
         loadDefaults()
         //this makes sure the keyboard is right height when first loaded
         if self.isLandscape()
@@ -309,7 +324,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             //self.inputView!.addConstraint(self.heightConstraint!)
         }
     }
- 
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -317,17 +332,17 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         capsLockButton?.setNeedsDisplay()
         deleteButton?.setNeedsDisplay()
         /*
-        //these fix a problem where buttons are not initially drawn correctly?
-        stackViews[1].arrangedSubviews.forEach {view in
-            view.setNeedsDisplay()
-        }
-        stackViews[2].arrangedSubviews.forEach {view in
-            view.setNeedsDisplay()
-        }
-        stackViews[3].arrangedSubviews.forEach {view in
-            view.setNeedsDisplay()
-        }
-        */
+         //these fix a problem where buttons are not initially drawn correctly?
+         stackViews[1].arrangedSubviews.forEach {view in
+         view.setNeedsDisplay()
+         }
+         stackViews[2].arrangedSubviews.forEach {view in
+         view.setNeedsDisplay()
+         }
+         stackViews[3].arrangedSubviews.forEach {view in
+         view.setNeedsDisplay()
+         }
+         */
     }
     
     //This?
@@ -337,18 +352,18 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         let screenSize = UIScreen.main.bounds.size
         let screenH = screenSize.height
         let screenW = screenSize.width /*
-        if appExt == false
-        {
-            return  !(self.view.frame.size.width == screenW * ((screenW < screenH) ? 1 : 0) + screenH * ((screenW > screenH) ? 1 : 0))
-        }
-        else if false
-        {*/
-            return (screenW > screenH) /*
-        }
-        else
-        {
-            return (UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight)
-        }*/
+         if appExt == false
+         {
+         return  !(self.view.frame.size.width == screenW * ((screenW < screenH) ? 1 : 0) + screenH * ((screenW > screenH) ? 1 : 0))
+         }
+         else if false
+         {*/
+        return (screenW > screenH) /*
+         }
+         else
+         {
+         return (UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight)
+         }*/
     }
     
     //http://stackoverflow.com/questions/26069874/what-is-the-right-way-to-handle-orientation-changes-in-ios-8
@@ -360,7 +375,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
             {
                 //self.inputView!.removeConstraint(self.heightConstraint!)
-
+                
                 
                 //NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
                 if self.isLandscape()
@@ -380,10 +395,10 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 self.capsLockButton?.setNeedsDisplay()
                 self.deleteButton?.setNeedsDisplay()
             }
-        
+            
         }, completion: nil)
     }
-
+    
     func setupConstraints()
     {
         var kbHeight = portraitHeight
@@ -394,12 +409,12 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         //NSLog("height: \(kbHeight)")
         
         heightConstraint = NSLayoutConstraint(item: self.view!,
-                                               attribute: .height,
-                                               relatedBy: .equal,
-                                               toItem: nil,
-                                               attribute: .notAnAttribute,
-                                               multiplier: 1.0,
-                                               constant: kbHeight)
+                                              attribute: .height,
+                                              relatedBy: .equal,
+                                              toItem: nil,
+                                              attribute: .notAnAttribute,
+                                              multiplier: 1.0,
+                                              constant: kbHeight)
         heightConstraint!.priority = UILayoutPriority(rawValue: 999.0)
         heightConstraint?.isActive = true
         self.view.addConstraint(heightConstraint!)
@@ -425,13 +440,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             self.inputView?.addConstraints([leftC,topC,rightC,bottomC])
         }
     }
-
-/*
-    override func viewDidAppear(_ animated:Bool) {
-        super.viewDidAppear(animated)
-
-    }
-*/
+    
+    /*
+     override func viewDidAppear(_ animated:Bool) {
+     super.viewDidAppear(animated)
+     
+     }
+     */
     func playKeyClick()
     {
         if playClick
@@ -471,7 +486,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         super.viewDidLoad()
         
         loadDefaults()
-    
+        
         allowSpacingDiacritics(true) //this sets variable in accent.c
         
         self.inputView?.autoresizingMask = [] //this is needed too???
@@ -490,7 +505,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         
         hv.translatesAutoresizingMaskIntoConstraints = false //req
         self.view.addSubview(hv)
-
+        
         if UIDevice.current.userInterfaceIdiom == .pad
         {
             portraitHeight = 380.0
@@ -498,31 +513,9 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         }
         else
         {
-            if UIScreen.main.nativeBounds.height == 2688.0 && UIScreen.main.nativeBounds.width == 1242.0
+            if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
             {
-                //iPhone XS Max
-                portraitHeight = 250.0
-                if appExt == false
-                {
-                    portraitHeight = 280.0
-                    hv.extraBottomPadding = 30.0
-                }
-                landscapeHeight = 176.0
-            }
-            else if UIScreen.main.nativeBounds.height == 2436.0 && UIScreen.main.nativeBounds.width == 1125.0
-            {
-                //iPhone X, XS
-                portraitHeight = 250.0
-                if appExt == false
-                {
-                    portraitHeight = 280.0
-                    hv.extraBottomPadding = 30.0
-                }
-                landscapeHeight = 176.0
-            }
-            else if UIScreen.main.nativeBounds.height == 1792.0 && UIScreen.main.nativeBounds.width == 828.0
-            {
-                //iPhone XR
+                //iPhone X
                 portraitHeight = 250.0
                 if appExt == false
                 {
@@ -547,10 +540,6 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         {
             portraitHeight = portraitHeightOverride
         }
-        if landscapeHeightOverride > 0
-        {
-            landscapeHeight = landscapeHeightOverride
-        }
         
         if dragOverButtons == true
         {
@@ -558,30 +547,30 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             recognizer.delegate = self
             self.view.addGestureRecognizer(recognizer)
         }
-
+        
         keys = [["῾", "᾿", "´", "`", "˜", "¯", "ͺ", ",","·", "xxx"],
-                                ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
-                               ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
-                               ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "BK" ],
-                               ["CP", "123", "KB", "space", ".", "enter"]]
- 
+                ["ς", "ε", "ρ", "τ", "υ", "θ", "ι", "ο", "π"],
+                ["α", "σ", "δ", "φ", "γ", "η", "ξ", "κ", "λ"],
+                ["ζ", "χ", "ψ", "ω", "β", "ν", "μ" , "BK" ],
+                ["CP", "123", "KB", "space", ".", "enter"]]
+        
         keysUpper = [["῾", "᾿", "´", "`", "¨", "˘", "ͺ", "’","—", "xxx"],
-                                ["!", "Ε", "Ρ", "Τ", "Υ", "Θ", "Ι", "Ο", "Π"],
-                                ["Α", "Σ", "Δ", "Φ", "Γ", "Η", "Ξ", "Κ", "Λ"],
-                                ["Ζ", "Χ", "Ψ", "Ω", "Β", "Ν", "Μ" , "BK" ],
-                                ["CP", "123", "KB", "space", ";", "enter"]]
+                     ["!", "Ε", "Ρ", "Τ", "Υ", "Θ", "Ι", "Ο", "Π"],
+                     ["Α", "Σ", "Δ", "Φ", "Γ", "Η", "Ξ", "Κ", "Λ"],
+                     ["Ζ", "Χ", "Ψ", "Ω", "Β", "Ν", "Μ" , "BK" ],
+                     ["CP", "123", "KB", "space", ";", "enter"]]
         
         keysNums = [["1", "2", "3", "4", "5", "6", "7", "8","9", "0"],
-                ["ϲ", "ϙ", "ϝ", "ϛ", "ϟ", "ϡ", "ϻ", "ͷ", "ͳ"],
-                ["ͱ", "ϸ", "ͻ", "ͼ", "ϵ", "ϐ", "Ϗ", "ʹ", "/"],
-                ["+", "*", "\"", "(", ")", "[", "]" , "BK" ],
-                ["CP", "αβγ", "KB", "space", "-", "enter"]]
+                    ["ϲ", "ϙ", "ϝ", "ϛ", "ϟ", "ϡ", "ϻ", "ͷ", "ͳ"],
+                    ["ͱ", "ϸ", "ͻ", "ͼ", "ϵ", "ϐ", "Ϗ", "ʹ", "/"],
+                    ["+", "*", "\"", "(", ")", "[", "]" , "BK" ],
+                    ["CP", "αβγ", "KB", "space", "-", "enter"]]
         
         keysNumsUpper = [["×", "‒", "⏑", "⏒", "⏓", "⏔", "⏕", "⏖","|", "‖"],
-                ["Ϲ", "Ϙ", "Ϝ", "Ϛ", "Ϟ", "Ϡ", "Ϻ", "Ͷ", "Ͳ"],
-                ["Ͱ", "Ϸ", "ͻ", "ͽ", "϶", "ϐ", "Ϗ", "͵", "\\"],
-                ["=", "#", "'", "<", ">", "{", "}" , "BK" ],
-                ["CP", "αβγ", "KB", "space", "_", "enter"]]
+                         ["Ϲ", "Ϙ", "Ϝ", "Ϛ", "Ϟ", "Ϡ", "Ϻ", "Ͷ", "Ͳ"],
+                         ["Ͱ", "Ϸ", "ͻ", "ͽ", "϶", "ϐ", "Ϗ", "͵", "\\"],
+                         ["=", "#", "'", "<", ">", "{", "}" , "BK" ],
+                         ["CP", "αβγ", "KB", "space", "_", "enter"]]
         
         setButtons(keys:keys)
         //changeKeys(keys: keys)
@@ -619,8 +608,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 }
                 else if accents.contains(key)
                 {
-                    //b = HCAccentButton(buttonType:1)
-                    b = HCButton(buttonType:topRowButtonType, bgColor:HopliteConstants.accentBGColor, textColor:HopliteConstants.accentTextColor, bgColorDown:HopliteConstants.accentBGColorDown, textColorDown:HopliteConstants.accentTextColorDown)
+                    b = HCButton(buttonType:topRowButtonType, bgColor:accentBGColor, textColor:accentTextColor, bgColorDown:accentBGColorDown, textColorDown:accentTextColorDown)
                     
                     b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
@@ -696,6 +684,28 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                     
                     b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
                 }
+                else if key == "MF"
+                {
+                    b = HCMFButton()
+                    mfButton = b as? HCMFButton
+                    buttons.append(b)
+                    
+                    b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
+                    b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
+                    
+                    if UIDevice.current.userInterfaceIdiom == .pad
+                    {
+                        b.layer.cornerRadius = HopliteConstants.ipadRadius
+                    }
+                    else
+                    {
+                        b.layer.cornerRadius = HopliteConstants.normalRadius
+                    }
+                    b.setTitle(key, for: [])
+                    b.setTitleColor(UIColor.white, for: [])
+                    
+                    //b.backgroundColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
+                }
                 else if key == "space"
                 {
                     b = HCSpaceButton()
@@ -733,7 +743,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         setupConstraints()
         changeKeys(keys: keys)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
@@ -805,7 +815,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         {
             accent = 7
         }
-        else if whichAccent == "()" //surrounding parentheses
+        else if whichAccent == "( )" //surrounding parentheses
         {
             accent = 8
         }
@@ -877,7 +887,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         (textDocumentProxy as UIKeyInput).deleteBackward() //seems to include any combining chars, but not in MSWord!
         (textDocumentProxy as UIKeyInput).insertText("\(newLetter)")
     }
-
+    
     @objc func keyPressedDown(button: UIButton) {
         //button.superview!.bringSubview(toFront: button)
         playKeyClick()
@@ -951,7 +961,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         capsLockOn = !capsLockOn
         changeCaps()
     }
-
+    
     func changeMisc() {
         var k:[[String]] = []
         if miscLockOn
@@ -1018,7 +1028,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 
                 let key = k
                 
-                if key != "enter" && key != "KB" && key != "CP" && key != "space" && key != "BK"
+                if key != "enter" && key != "KB" && key != "CP" && key != "space" && key != "BK" && key != "MF"
                 {
                     let b = hv.buttons[i][j] as! HCButton
                     punc = false
@@ -1031,54 +1041,76 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 20
                     }
                     else if key == "˜"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 20
                     }
                     else if key == "`"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 20
                     }
                     else if key == "¯"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 16
                     }
                     else if key == "῾"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 12
                     }
                     else if key == "᾿"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 12
                     }
                     else if key == "ͺ"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
+                        b.fontSize = 40
+                        b.edgeOffset = -30
                     }
                     else if key == "¨"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 20
                     }
                     else if key == "˘"
                     {
                         accent = true
                         b.titleLabel!.font = UIFont(name: buttonFont!, size: 40)
                         b.titleEdgeInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+                        b.fontSize = 40
+                        b.edgeOffset = 20
+                    }
+                    else if key == "( )"
+                    {
+                        accent = true
                     }
                     else if puncs.contains(key)
                     {
@@ -1112,10 +1144,10 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                         {
                             b.btype = 0
                         }
-                        b.vbgColor = HopliteConstants.accentBGColor
-                        b.vtextColor = HopliteConstants.accentTextColor
-                        b.vbgDownColor = HopliteConstants.accentBGColorDown
-                        b.vtextDownColor = HopliteConstants.accentTextColorDown
+                        b.vbgColor = accentBGColor
+                        b.vtextColor = accentTextColor
+                        b.vbgDownColor = accentBGColorDown
+                        b.vtextDownColor = accentTextColorDown
                     }
                     else if punc
                     {
@@ -1165,7 +1197,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         }
         hv.setNeedsLayout()
     }
- 
+    
     @objc func nextKeyboardPressed(_ button: UIButton) {
         if appExt
         {
@@ -1174,7 +1206,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         else
         {
             let alertController = UIAlertController(title: NSLocalizedString("Globe Key",comment:""), message: NSLocalizedString("Outside of this app, pressing the globe key will change to a different keyboard.",comment:""), preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title:     NSLocalizedString("Ok", comment: ""), style: .default, handler: { (pAlert) in
+            let defaultAction = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: { (pAlert) in
                 //Do whatever you wants here
             })
             alertController.addAction(defaultAction)

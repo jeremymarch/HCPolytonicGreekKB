@@ -19,6 +19,7 @@ class HCMFButton: UIButton {
     var textColor = HopliteConstants.accentTextColor
     var bgDownColor = HopliteConstants.accentBGColorDown
     var textDownColor = HopliteConstants.accentTextColorDown
+    var buttonDown = false
     
     let hcorange = UIColor(red: 1.0, green: 0.2196, blue: 0, alpha: 1)
     
@@ -39,6 +40,9 @@ class HCMFButton: UIButton {
         self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchUpOutside)
         self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDown)
+        
+        self.addTarget(self, action: #selector(touchDown(sender:)), for: .touchDragEnter)
+        self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchDragExit)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,7 +50,9 @@ class HCMFButton: UIButton {
     }
     
     @objc func touchUpInside(sender: UIButton!) {
+        
         isDepressed = true
+        buttonDown = false
         layer.borderColor = hcorange.cgColor
         layer.borderWidth = 2.0
         
@@ -59,6 +65,7 @@ class HCMFButton: UIButton {
     @objc func touchUpOutside(sender: UIButton!) {
         
         isDepressed = false
+        buttonDown = false
         layer.borderColor = nil
         layer.borderWidth = 0.0
         
@@ -68,7 +75,9 @@ class HCMFButton: UIButton {
     }
     
     @objc func touchDown(sender: UIButton!) {
+        
         isDepressed = true
+        buttonDown = true
         layer.borderColor = hcorange.cgColor
         layer.borderWidth = 2.0
         
@@ -80,6 +89,7 @@ class HCMFButton: UIButton {
     func reset()
     {
         isDepressed = false
+        buttonDown = false
         layer.borderColor = nil
         layer.borderWidth = 0.0
         setTitle("MF", for: [])

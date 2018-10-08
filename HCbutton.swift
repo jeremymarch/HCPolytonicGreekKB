@@ -14,14 +14,14 @@
 import UIKit
 
 class HCButton: UIButton {
-
+    
     var btype: Int? = nil
     /*
-    var bgColor:UIColor = .white
-    var bgDownColor:UIColor = .black
-    var textColor:UIColor = .black
-    var textDownColor:UIColor = .white
-    */
+     var bgColor:UIColor = .white
+     var bgDownColor:UIColor = .black
+     var textColor:UIColor = .black
+     var textDownColor:UIColor = .white
+     */
     
     var vbgColor = UIColor.white
     var vtextColor = UIColor.black
@@ -30,8 +30,9 @@ class HCButton: UIButton {
     
     let buttonRadius:CGFloat = 4.0
     
-    let fontSize:CGFloat = 24.0
-    let downFontSize:CGFloat = 36.0
+    var fontSize:CGFloat = 24.0
+    var edgeOffset:CGFloat = 0.0
+    var downFontSize:CGFloat = 36.0
     var buttonDown:Bool = false
     let buttonTail:CGFloat = 4
     let buttonDownWidthFactor:CGFloat = 1.66
@@ -107,7 +108,7 @@ class HCButton: UIButton {
                 let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
                 self.frame = buttonFrame
                 self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
-                self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
+                self.titleEdgeInsets = UIEdgeInsets(top: edgeOffset, left: 0, bottom: 0, right: 0);
             }
             setTitleColor(vtextColor, for: [])
             setNeedsDisplay()
@@ -144,7 +145,7 @@ class HCButton: UIButton {
                 let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
                 self.frame = buttonFrame
                 
-                self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
+                self.titleEdgeInsets = UIEdgeInsets(top: edgeOffset, left: 0, bottom: 0, right: 0);
                 self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
             }
             setTitleColor(vtextColor, for: [])
@@ -180,6 +181,9 @@ class HCButton: UIButton {
         {
             if !(self.frame.size.width > self.frame.size.height * 1.5) && UIDevice.current.userInterfaceIdiom == .phone
             {
+                //fontSize = self.titleLabel!.font.pointSize
+                downFontSize = fontSize * 1.3
+                
                 let width = self.frame.size.width * buttonDownWidthFactor
                 let height = (self.frame.size.height * buttonDownHeightFactor) + buttonTail
                 let x = self.frame.origin.x - (((self.frame.size.width * buttonDownWidthFactor) - self.frame.size.width) / 2)
@@ -188,7 +192,7 @@ class HCButton: UIButton {
                 let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
                 self.frame = buttonFrame
                 
-                self.titleEdgeInsets = UIEdgeInsets(top: -50, left: 0, bottom: 0, right: 0);
+                self.titleEdgeInsets = UIEdgeInsets(top: -50 + edgeOffset, left: 0, bottom: 0, right: 0);
                 self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: downFontSize)
                 setTitleColor(vtextColor, for: [])
             }
@@ -199,7 +203,7 @@ class HCButton: UIButton {
             setNeedsDisplay()
         }
     }
-        
+    
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
@@ -307,36 +311,36 @@ class HCButton: UIButton {
         
         return path
     }
- /*
-    func createDepressedButtonForRectOld(rect:CGRect, radius:CGFloat ) -> CGMutablePath
-    {
-        let inset:CGFloat = 8
-        let topHeight:CGFloat = rect.size.height / 2
-        let midHeight:CGFloat = rect.size.height / 4
-    
-        let path:CGMutablePath = CGMutablePath()
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-        
-        //NE
-        path.addArc(tangent1End: CGPoint(x:rect.maxX, y:rect.minY), tangent2End: CGPoint(x:rect.maxX, y:rect.maxY), radius: radius)
-        
-        path.addLine(to: CGPoint(x:rect.maxX, y:rect.minY + topHeight))
-        path.addLine(to: CGPoint(x:rect.maxX - inset, y:rect.minY + topHeight + midHeight))
-        
-        //SE
-        path.addArc(tangent1End: CGPoint(x:rect.maxX - inset, y:rect.maxY), tangent2End: CGPoint(x:rect.minX - inset, y:rect.maxY), radius: radius)
-        //SW
-        path.addArc(tangent1End: CGPoint(x:rect.minX + inset, y:rect.maxY), tangent2End: CGPoint(x:rect.minX, y:rect.minY), radius: radius)
-
-        path.addLine(to: CGPoint(x:rect.minX + inset, y: rect.minY + topHeight + midHeight))
-        path.addLine(to: CGPoint(x:rect.minX, y:rect.minY + topHeight))
-
-        //NW
-        path.addArc(tangent1End: CGPoint(x:rect.minX, y:rect.minY), tangent2End: CGPoint(x:rect.maxX, y:rect.minY), radius: radius)
-    
-        path.closeSubpath()
-    
-        return path;
-    }
- */
+    /*
+     func createDepressedButtonForRectOld(rect:CGRect, radius:CGFloat ) -> CGMutablePath
+     {
+     let inset:CGFloat = 8
+     let topHeight:CGFloat = rect.size.height / 2
+     let midHeight:CGFloat = rect.size.height / 4
+     
+     let path:CGMutablePath = CGMutablePath()
+     path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+     
+     //NE
+     path.addArc(tangent1End: CGPoint(x:rect.maxX, y:rect.minY), tangent2End: CGPoint(x:rect.maxX, y:rect.maxY), radius: radius)
+     
+     path.addLine(to: CGPoint(x:rect.maxX, y:rect.minY + topHeight))
+     path.addLine(to: CGPoint(x:rect.maxX - inset, y:rect.minY + topHeight + midHeight))
+     
+     //SE
+     path.addArc(tangent1End: CGPoint(x:rect.maxX - inset, y:rect.maxY), tangent2End: CGPoint(x:rect.minX - inset, y:rect.maxY), radius: radius)
+     //SW
+     path.addArc(tangent1End: CGPoint(x:rect.minX + inset, y:rect.maxY), tangent2End: CGPoint(x:rect.minX, y:rect.minY), radius: radius)
+     
+     path.addLine(to: CGPoint(x:rect.minX + inset, y: rect.minY + topHeight + midHeight))
+     path.addLine(to: CGPoint(x:rect.minX, y:rect.minY + topHeight))
+     
+     //NW
+     path.addArc(tangent1End: CGPoint(x:rect.minX, y:rect.minY), tangent2End: CGPoint(x:rect.maxX, y:rect.minY), radius: radius)
+     
+     path.closeSubpath()
+     
+     return path;
+     }
+     */
 }
