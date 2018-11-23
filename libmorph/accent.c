@@ -794,7 +794,7 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
 
     //fallback if macron + one more diacritic
     bool precomposingFallbackToComposing = false;
-    if ((unicode_mode == PRECOMPOSED_MODE && (accentBitMask & _MACRON) == _MACRON) || (unicodeMode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_MACRON | _DIAERESIS)) == (_MACRON | _DIAERESIS)))
+    if ((unicodeMode == PRECOMPOSED_MODE && (accentBitMask & _MACRON) == _MACRON) || (unicodeMode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_MACRON | _DIAERESIS)) == (_MACRON | _DIAERESIS)))
     {
         if ((accentBitMask & ~_MACRON) != 0)//if any other bits set besides macron
         {
@@ -812,7 +812,7 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
     }
 
     *newLetterLen = 1;
-    if (unicode_mode == COMBINING_ONLY_MODE || precomposingFallbackToComposing)
+    if (unicodeMode == COMBINING_ONLY_MODE || precomposingFallbackToComposing)
     {
         if ((accentBitMask & _MACRON) == _MACRON)
             (*newLetterLen)++;
@@ -889,12 +889,12 @@ bool makeLetter(UCS2 *ucs2String, int *newLetterLen, int letterCode, int accentB
     }
     else
     {
-        if (unicode_mode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_IOTA_SUB | _MACRON)) == (_IOTA_SUB | _MACRON))
+        if (unicodeMode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_IOTA_SUB | _MACRON)) == (_IOTA_SUB | _MACRON))
         {
             (*newLetterLen)++;
         }
 
-        if (unicode_mode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_IOTA_SUB | _MACRON)) == (_IOTA_SUB | _MACRON))
+        if (unicodeMode == PRECOMPOSED_WITH_PUA_MODE && (accentBitMask & (_IOTA_SUB | _MACRON)) == (_IOTA_SUB | _MACRON))
         {
             ucs2String[i+1] = COMBINING_IOTA_SUBSCRIPT;
             accentBitMask &= ~_IOTA_SUB; //so we don't get two iota subscripts
@@ -1057,7 +1057,7 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
     //4. this creates the new letter, either with combining or precomposed accents
     UCS2 buffer[MAX_COMBINING]; //this is letter plus max combining
     int newLetterLen = 0;
-    if (!makeLetter(buffer, &newLetterLen, letterCode, accentBitMask, unicodeMode))
+    if (!makeLetter(buffer, &newLetterLen, letterCode, accentBitMask, unicode_mode))
         return;
 
     //5. make room for letter or decrease it if it is shrinking

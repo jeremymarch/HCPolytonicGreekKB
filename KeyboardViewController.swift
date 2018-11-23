@@ -101,6 +101,7 @@ public enum UnicodeMode:Int32 {
     case PreComposedNoPUA = 0
     case PreComposedPUA = 1
     case CombiningOnly = 2
+    case PreComposedHCMode = 3
 }
 
 class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate {
@@ -479,6 +480,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         {
             unicodeMode = UnicodeMode.PreComposedNoPUA.rawValue
         }
+        unicodeMode = UnicodeMode.PreComposedHCMode.rawValue
         //NSLog("Set unicode mode: \(unicodeMode)")
     }
     
