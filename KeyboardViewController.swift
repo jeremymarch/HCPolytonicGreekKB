@@ -104,7 +104,12 @@ public enum UnicodeMode:Int32 {
     case PreComposedHCMode = 3
 }
 
+protocol mfPressedDelegate: AnyObject {
+    func onMFPressed() -> Void
+}
+
 class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate {
+    weak var mfDelegate: mfPressedDelegate?
     var accentBGColor = HopliteConstants.accentBGColor
     var accentTextColor = HopliteConstants.accentTextColor
     var accentBGColorDown = HopliteConstants.accentBGColorDown
@@ -692,6 +697,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                     mfButton = b as? HCMFButton
                     buttons.append(b)
                     
+                    b.addTarget(self, action: #selector(self.keyPressedDown(button:)), for: .touchDown)
                     b.addTarget(self, action: #selector(self.keyPressed(button:)), for: .touchUpInside)
                     b.titleLabel!.font = UIFont(name: b.titleLabel!.font.fontName, size: smallerFontSize)
                     
@@ -905,6 +911,11 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         if accents.contains(key!)
         {
             accentPressed(button)
+        }
+        else if key?.lowercased() == "mf" || key! == ","
+        {
+            (textDocumentProxy as UIKeyInput).insertText(", ")
+            self.mfDelegate?.onMFPressed()
         }
         else
         {
