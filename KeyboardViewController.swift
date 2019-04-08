@@ -109,7 +109,6 @@ protocol mfPressedDelegate: AnyObject {
 }
 
 class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate {
-    weak var mfDelegate: mfPressedDelegate?
     var accentBGColor = HopliteConstants.accentBGColor
     var accentTextColor = HopliteConstants.accentTextColor
     var accentBGColorDown = HopliteConstants.accentBGColorDown
@@ -182,6 +181,10 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
      super.updateViewConstraints()
      }
      */
+    func resetMFButton()
+    {
+        mfButton?.setTitle("MF", for: [])
+    }
     
     func resetButtons(button:UIButton?)
     {
@@ -494,7 +497,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         
         loadDefaults()
         
-        allowSpacingDiacritics(true) //this sets variable in accent.c
+        allowSpacingDiacritics(false) //this sets variable in accent.c
         
         self.inputView?.autoresizingMask = [] //this is needed too???
         
@@ -912,10 +915,15 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         {
             accentPressed(button)
         }
-        else if key?.lowercased() == "mf" || key! == ","
+        else if key?.lowercased() == "mf"
+        {
+            (textDocumentProxy as UIKeyInput).insertText("MF")
+            button.setTitle(",", for: [])
+            //self.mfDelegate?.onMFPressed()
+        }
+        else if key?.lowercased() == ","
         {
             (textDocumentProxy as UIKeyInput).insertText(", ")
-            self.mfDelegate?.onMFPressed()
         }
         else
         {
