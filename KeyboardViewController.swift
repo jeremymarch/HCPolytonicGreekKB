@@ -534,6 +534,17 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 }
                 landscapeHeight = 176.0
             }
+            else if UIScreen.main.nativeBounds.height == 2688.0 && UIScreen.main.nativeBounds.width == 1242.0 //xsMax
+            {
+                //iPhone xsMax
+                portraitHeight = 250.0
+                if appExt == false
+                {
+                    portraitHeight = 0.260
+                    hv.extraBottomPadding = 30.0
+                }
+                landscapeHeight = 176.0
+            }
             else if UIScreen.main.nativeBounds.width < 641 //for iphone 5s and narrower
             {
                 buttonSpacing = 4.0
