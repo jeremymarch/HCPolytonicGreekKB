@@ -18,6 +18,20 @@ extension UIInputView: UIInputViewAudioFeedback {
     public var enableInputClicksWhenVisible: Bool { get { return true } }
 }
 
+enum AccentKeys:Int32 {
+    case none = 0
+    case acute = 1
+    case circumflex = 2
+    case grave = 3
+    case macron = 4
+    case rough = 5
+    case smooth = 6
+    case iotasubscript = 7
+    case parens = 8
+    case diaeresis = 9
+    case breve = 10
+}
+
 let orange = UIColor.init(red: 255/255.0, green: 96/255.0, blue: 70/255.0, alpha: 1.0)
 let green = UIColor.init(red: 102/255.0, green: 200/255.0, blue: 255/255.0, alpha: 1.0)
 let darkBlue = UIColor.init(red: 50/255.0, green: 90/255.0, blue: 139/255.0, alpha: 1.0)
@@ -109,6 +123,23 @@ protocol mfPressedDelegate: AnyObject {
 }
 
 class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate {
+    let COMBINING_GRAVE =            0x0300
+    let COMBINING_ACUTE =            0x0301
+    let COMBINING_CIRCUMFLEX =       0x0342//0x0302
+    let COMBINING_MACRON =           0x0304
+    let COMBINING_BREVE =            0x0306
+    let COMBINING_DIAERESIS =        0x0308
+    let COMBINING_SMOOTH_BREATHING = 0x0313
+    let COMBINING_ROUGH_BREATHING =  0x0314
+    let COMBINING_IOTA_SUBSCRIPT =   0x0345
+    let EM_DASH =                    0x2014
+    let LEFT_PARENTHESIS =           0x0028
+    let RIGHT_PARENTHESIS =          0x0029
+    let SPACE =                      0x0020
+    let EN_DASH =                    0x2013
+    let HYPHEN =                     0x2010
+    let COMMA =                      0x002C
+    
     var accentBGColor = HopliteConstants.accentBGColor
     var accentTextColor = HopliteConstants.accentTextColor
     var accentBGColorDown = HopliteConstants.accentBGColorDown
@@ -322,13 +353,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         //this makes sure the keyboard is right height when first loaded
         if self.isLandscape()
         {
-            NSLog("landscape: \(self.landscapeHeight)")
+            print("landscape: \(self.landscapeHeight)")
             self.heightConstraint?.constant = self.landscapeHeight;
             //self.inputView!.addConstraint(self.heightConstraint!)
         }
         else
         {
-            NSLog("portrait: \(self.portraitHeight)")
+            print("portrait: \(self.portraitHeight)")
             self.heightConstraint?.constant = self.portraitHeight;
             //self.inputView!.addConstraint(self.heightConstraint!)
         }
@@ -378,7 +409,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     //http://stackoverflow.com/questions/26069874/what-is-the-right-way-to-handle-orientation-changes-in-ios-8
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        NSLog("rotate")
+        //print("rotate")
         coordinator.animate(alongsideTransition: { _ in
             
             if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
@@ -389,13 +420,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 //NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
                 if self.isLandscape()
                 {
-                    NSLog("landscape: \(self.landscapeHeight)")
+                    //print("landscape: \(self.landscapeHeight)")
                     self.heightConstraint?.constant = self.landscapeHeight;
                     //self.inputView!.addConstraint(self.heightConstraint!)
                 }
                 else
                 {
-                    NSLog("portrait: \(self.portraitHeight)")
+                    //print("portrait: \(self.portraitHeight)")
                     self.heightConstraint?.constant = self.portraitHeight;
                     //self.inputView!.addConstraint(self.heightConstraint!)
                 }
@@ -789,74 +820,47 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         globeButton?.setTitleColor(textColor, for: [])
     }
     
-    let COMBINING_GRAVE =            0x0300
-    let COMBINING_ACUTE =            0x0301
-    let COMBINING_CIRCUMFLEX =       0x0342//0x0302
-    let COMBINING_MACRON =           0x0304
-    let COMBINING_BREVE =            0x0306
-    let COMBINING_DIAERESIS =        0x0308
-    let COMBINING_SMOOTH_BREATHING = 0x0313
-    let COMBINING_ROUGH_BREATHING =  0x0314
-    let COMBINING_IOTA_SUBSCRIPT =   0x0345
-    let EM_DASH =                    0x2014
-    let LEFT_PARENTHESIS =           0x0028
-    let RIGHT_PARENTHESIS =          0x0029
-    let SPACE =                      0x0020
-    let EN_DASH =                    0x2013
-    let HYPHEN =                     0x2010
-    let COMMA =                      0x002C
+    func accentButtonPressed(_ button: UIButton) {
+        var accent:AccentKeys = .none
+        
+        switch button.titleLabel!.text {
+        case "´": //acute
+            accent = .acute
+        case "˜": //circumflex
+            accent = .circumflex
+        case "`": //grave
+            accent = .grave
+        case "¯": //macron
+            accent = .macron
+        case "῾": //rough breathing
+            accent = .rough
+        case "᾿": //smooth breathing
+            accent = .smooth
+        case "ͺ": //iota subscript
+            accent = .iotasubscript
+        case "( )": //surrounding parentheses
+            accent = .parens
+        case "¨": //diaeresis
+            accent = .diaeresis
+        case "˘": //breve
+            accent = .breve
+        default:
+            accent = .none
+        }
+        
+        if accent != .none
+        {
+            accentPressed(accent:accent)
+        }
+    }
     
-    func accentPressed(_ button: UIButton) {
-        let whichAccent = button.titleLabel!.text
-        var accent = -1
-        if whichAccent == "´" //acute
-        {
-            accent = 1
-        }
-        else if whichAccent == "˜" //circumflex
-        {
-            accent = 2
-        }
-        else if whichAccent == "`" //grave
-        {
-            accent = 3
-        }
-        else if whichAccent == "¯" //macron
-        {
-            accent = 4
-        }
-        else if whichAccent == "῾" //rough breathing
-        {
-            accent = 5
-        }
-        else if whichAccent == "᾿" //smooth breathing
-        {
-            accent = 6
-        }
-        else if whichAccent == "ͺ" //iota subscript
-        {
-            accent = 7
-        }
-        else if whichAccent == "( )" //surrounding parentheses
-        {
-            accent = 8
-        }
-        else if whichAccent == "¨" //diaeresis
-        {
-            accent = 9
-        }
-        else if whichAccent == "˘" //breve
-        {
-            accent = 10
-        }
-        else
+    func accentPressed(accent:AccentKeys)
+    {
+        if accent == .none
         {
             return
         }
-        
-        let context = self.textDocumentProxy.documentContextBeforeInput
-        let len = context?.count
-        if len == nil || len! < 1
+        guard let contextBefore = self.textDocumentProxy.documentContextBeforeInput, contextBefore.count > 0 else
         {
             return
         }
@@ -877,9 +881,9 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         var buffer16 = [UInt16](repeating: 0, count: bufferSize16)
         
         // 2. figure out how many characters to send
-        var lenToSend = 1
+        var lenToSend = 1 //we'll always send at least one char + 0 or more combining diacritics
         let maxCombiningChars = 5
-        for a in (context!.unicodeScalars).reversed()
+        for a in (contextBefore.unicodeScalars).reversed()
         {
             if lenToSend < maxCombiningChars && combiningChars.contains(Int(a.value))
             {
@@ -892,7 +896,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         }
         
         // 3. fill the buffer
-        let suf = context!.unicodeScalars.suffix(lenToSend)
+        let suf = contextBefore.unicodeScalars.suffix(lenToSend)
         var j = 0
         for i in (1...lenToSend).reversed()
         {
@@ -900,9 +904,9 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             j += 1
         }
         var len16:Int32 = Int32(lenToSend)
-        NSLog("len: \(len16), accent pressed, umode: \(unicodeMode)")
+        //print("len: \(len16), accent pressed, umode: \(unicodeMode)")
         
-        accentSyllable(&buffer16, 0, &len16, Int32(accent), true, unicodeMode)
+        accentSyllable(&buffer16, 0, &len16, accent.rawValue, true, unicodeMode)
         
         let newLetter = String(utf16CodeUnits: buffer16, count: Int(len16))
         
@@ -924,7 +928,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         
         if accents.contains(key!)
         {
-            accentPressed(button)
+            accentButtonPressed(button)
         }
         else if key?.lowercased() == "mf"
         {
