@@ -157,7 +157,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     var keysNums:[[String]] = []
     var keysNumsUpper:[[String]] = []
     
-    let playClick:Bool = true
+    var playClick:Bool = true
     var capsLockOn:Bool = false
     var miscLockOn:Bool = false
     let bgColor = UIColor.init(red: 210/255.0, green: 213/255.0, blue: 219/255.0, alpha: 1.0)
@@ -489,38 +489,47 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
      */
     func playKeyClick()
     {
-        if playClick
-        {
-            UIDevice.current.playInputClick()
-        }
+        UIDevice.current.playInputClick()
     }
     
     func loadDefaults()
     {
-        let defaults = UserDefaults(suiteName: "group.com.philolog.hoplitekeyboard")
-        if defaults != nil
+        if let defaults = UserDefaults(suiteName: "group.com.philolog.hoplitekeyboard")
         {
-            let m = defaults?.object(forKey: "UnicodeAccents")
-            if m != nil
+            if let umode = defaults.object(forKey: "UnicodeAccents") as? Int32
             {
-                let n:Int32 = m as! Int32
-                if n >= 0 && n <= 2
+                if umode >= 0 && umode <= 2
                 {
-                    unicodeMode = n
+                    unicodeMode = umode
+                }
+                else
+                {
+                    unicodeMode = UnicodeMode.PreComposedNoPUA.rawValue
                 }
             }
             else
             {
-                defaults?.set(UnicodeMode.PreComposedNoPUA.rawValue, forKey: "UnicodeAccents")
                 unicodeMode = UnicodeMode.PreComposedNoPUA.rawValue
+                defaults.set(unicodeMode, forKey: "UnicodeAccents")
+            }
+            
+            if let p = defaults.object(forKey: "PlayClick") as? Bool
+            {
+                playClick = p
+            }
+            else
+            {
+                playClick = true
+                defaults.set(playClick, forKey: "PlayClick")
             }
         }
         else
         {
             unicodeMode = UnicodeMode.PreComposedNoPUA.rawValue
+            playClick = true
         }
         unicodeMode = UnicodeMode.PreComposedHCMode.rawValue
-        //NSLog("Set unicode mode: \(unicodeMode)")
+        //print("Set unicode mode: \(unicodeMode)")
     }
     
     override func viewDidLoad() {
@@ -865,15 +874,6 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             return
         }
         
-        //accentSyllable(&context?.utf16, context.count, &context.count, 1, false);
-        /*
-         let bufferSize = 200
-         var nameBuf = [Int8](repeating: 0, count: bufferSize) // Buffer for C string
-         nameBuf[0] = Int8(context![context!.index(before: context!.endIndex)])
-         accentSyllableUtf8(&nameBuf, 1, false)
-         let name = String(cString: nameBuf)
-         */
-        
         let combiningChars = [COMBINING_BREVE,COMBINING_GRAVE,COMBINING_ACUTE,COMBINING_CIRCUMFLEX,COMBINING_MACRON,COMBINING_DIAERESIS,COMBINING_SMOOTH_BREATHING,COMBINING_ROUGH_BREATHING,COMBINING_IOTA_SUBSCRIPT]
         
         // 1. make a buffer for the C string
@@ -910,13 +910,17 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         
         let newLetter = String(utf16CodeUnits: buffer16, count: Int(len16))
         
-        (textDocumentProxy as UIKeyInput).deleteBackward() //seems to include any combining chars, but not in MSWord!
+        //seems to include any combining chars, but not in MS Word app!
+        (textDocumentProxy as UIKeyInput).deleteBackward()
         (textDocumentProxy as UIKeyInput).insertText("\(newLetter)")
     }
     
     @objc func keyPressedDown(button: UIButton) {
         //button.superview!.bringSubview(toFront: button)
-        playKeyClick()
+        if playClick
+        {
+            playKeyClick()
+        }
     }
     
     @objc func keyPressed(button: UIButton) {
@@ -952,7 +956,10 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     
     @objc func backSpacePressed(_ button: UIButton) {
         (textDocumentProxy as UIKeyInput).deleteBackward()
-        playKeyClick()
+        if playClick
+        {
+            playKeyClick()
+        }
     }
     
     @objc func longDeletePressGesture(gestureReconizer: UILongPressGestureRecognizer) {
