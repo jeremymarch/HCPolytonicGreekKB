@@ -84,14 +84,14 @@ class HCKeyboardView: UIView {
         buttonWidth = (mainKeyboardWidth - (buttonHSpacing * (CGFloat(maxColumns) + 1.0))) / CGFloat(maxColumns)
         buttonHeight = (viewHeight - extraBottomPadding - (buttonVSpacing * (CGFloat(maxRows) + 1.0))) / CGFloat(maxRows)
         var delButtonWidth:CGFloat = 0.0
-        if UIDevice.current.userInterfaceIdiom == .pad
+        if UIDevice.current.userInterfaceIdiom == .pad && !isHC
         {
             delButtonWidth = (mainKeyboardWidth - (buttonHSpacing * (CGFloat(9) + 1.0))) / CGFloat(9)  * 1.36
         }
-        /*else if isHC
+        else if UIDevice.current.userInterfaceIdiom == .pad && isHC
         {
             delButtonWidth = buttonWidth
-        }*/
+        }
         else
         {
             delButtonWidth = buttonHeight
@@ -141,7 +141,14 @@ class HCKeyboardView: UIView {
                 }
                 if a is HCMFButton
                 {
-                    xoff = buttonHSpacing
+                    if UIDevice.current.userInterfaceIdiom == .pad
+                    {
+                        xoff = sidePadding
+                    }
+                    else
+                    {
+                        xoff = buttonHSpacing
+                    }
                 }
             }
             
@@ -161,16 +168,32 @@ class HCKeyboardView: UIView {
                     }
                     else if key is HCMFButton
                     {
-                        xoff = sidePadding + (buttonWidth) - buttonHeight
-                        key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: buttonHeight, height: buttonHeight)
-                        xoff += buttonHSpacing + buttonHeight
+                        if UIDevice.current.userInterfaceIdiom == .pad
+                        {
+                            key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: buttonWidth, height: buttonHeight)
+                            xoff += buttonHSpacing + buttonWidth
+                        }
+                        else
+                        {
+                            xoff = sidePadding + (buttonWidth) - buttonHeight
+                            key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: buttonHeight, height: buttonHeight)
+                            xoff += buttonHSpacing + buttonHeight
+                        }
                     }
                     else if key.titleLabel?.text == "enter" || key.titleLabel?.text == "space"
                     {
                         if isHC
                         {
-                            key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: viewWidth - xoff - buttonHSpacing, height: buttonHeight)
-                            xoff += buttonHSpacing + (realButtonWidth * 1.9)
+                            if UIDevice.current.userInterfaceIdiom == .pad
+                            {
+                                key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: viewWidth - xoff - sidePadding - buttonHSpacing, height: buttonHeight)
+                                xoff += buttonHSpacing + (realButtonWidth * 1.9)
+                            }
+                            else
+                            {
+                                key.frame = CGRect(x: xoff, y: (CGFloat(i) * (buttonVSpacing + buttonHeight)) + buttonVSpacing, width: viewWidth - xoff - buttonHSpacing, height: buttonHeight)
+                                xoff += buttonHSpacing + (realButtonWidth * 1.9)
+                            }
                         }
                         else
                         {
