@@ -353,13 +353,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         //this makes sure the keyboard is right height when first loaded
         if self.isLandscape()
         {
-            print("landscape: \(self.landscapeHeight)")
+            //print("landscape: \(self.landscapeHeight)")
             self.heightConstraint?.constant = self.landscapeHeight;
             //self.inputView!.addConstraint(self.heightConstraint!)
         }
         else
         {
-            print("portrait: \(self.portraitHeight)")
+            //print("portrait: \(self.portraitHeight)")
             self.heightConstraint?.constant = self.portraitHeight;
             //self.inputView!.addConstraint(self.heightConstraint!)
         }
