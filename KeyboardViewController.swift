@@ -240,14 +240,14 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         
         if gestureRecognizer.state == .changed
         {
-            //NSLog("changed")
+            //print("changed")
             if draggedView is HCButton || draggedView is HCDeleteButton || draggedView is HCEnterButton || draggedView is HCSpaceButton || draggedView is HCGlobeButton || draggedView is HCCapsLockButton && self.currentButton == nil {
                 self.currentButton = draggedView as? UIButton
                 /*
                  if self.currentButton != nil
                  {
                  let t = self.currentButton!.tag
-                 NSLog("Enter: \(t)")
+                 print("Enter: \(t)")
                  }
                  */
                 // send enter event to your button
@@ -261,7 +261,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                  if self.currentButton != nil
                  {
                  let t = self.currentButton!.tag
-                 NSLog("Exit: \(t)")
+                 print("Exit: \(t)")
                  }
                  */
                 // send exit event to your button
@@ -298,13 +298,13 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         //this makes sure the keyboard is right height when first loaded
         if self.isLandscape()
         {
-            NSLog("landscape: \(self.landscapeHeight)")
+            print("landscape: \(self.landscapeHeight)")
             self.heightConstraint?.constant = self.landscapeHeight;
             //self.inputView!.addConstraint(self.heightConstraint!)
         }
         else
         {
-            NSLog("portrait: \(self.portraitHeight)")
+            print("portrait: \(self.portraitHeight)")
             self.heightConstraint?.constant = self.portraitHeight;
             //self.inputView!.addConstraint(self.heightConstraint!)
         }
@@ -354,7 +354,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
     //http://stackoverflow.com/questions/26069874/what-is-the-right-way-to-handle-orientation-changes-in-ios-8
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        NSLog("rotate")
+        print("rotate")
         coordinator.animate(alongsideTransition: { _ in
             
             if self.view.frame.size.width != 0 && self.view.frame.size.height != 0
@@ -362,16 +362,16 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
                 //self.inputView!.removeConstraint(self.heightConstraint!)
 
                 
-                //NSLog(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
+                //print(isLandscape ? "Screen: Landscape" : "Screen: Potrait");
                 if self.isLandscape()
                 {
-                    NSLog("landscape: \(self.landscapeHeight)")
+                    print("landscape: \(self.landscapeHeight)")
                     self.heightConstraint?.constant = self.landscapeHeight;
                     //self.inputView!.addConstraint(self.heightConstraint!)
                 }
                 else
                 {
-                    NSLog("portrait: \(self.portraitHeight)")
+                    print("portrait: \(self.portraitHeight)")
                     self.heightConstraint?.constant = self.portraitHeight;
                     //self.inputView!.addConstraint(self.heightConstraint!)
                 }
@@ -391,7 +391,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         {
             kbHeight = landscapeHeight
         }
-        //NSLog("height: \(kbHeight)")
+        //print("height: \(kbHeight)")
         
         heightConstraint = NSLayoutConstraint(item: self.view!,
                                                attribute: .height,
@@ -464,7 +464,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         {
             unicodeMode = UnicodeMode.PreComposedNoPUA.rawValue
         }
-        //NSLog("Set unicode mode: \(unicodeMode)")
+        //print("Set unicode mode: \(unicodeMode)")
     }
     
     override func viewDidLoad() {
@@ -841,7 +841,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         let combiningChars = [COMBINING_BREVE,COMBINING_GRAVE,COMBINING_ACUTE,COMBINING_CIRCUMFLEX,COMBINING_MACRON,COMBINING_DIAERESIS,COMBINING_SMOOTH_BREATHING,COMBINING_ROUGH_BREATHING,COMBINING_IOTA_SUBSCRIPT]
         
         // 1. make a buffer for the C string
-        let bufferSize16 = 5
+        let bufferSize16 = 12 //5 is max, for safety
         var buffer16 = [UInt16](repeating: 0, count: bufferSize16)
         
         // 2. figure out how many characters to send
@@ -868,7 +868,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             j += 1
         }
         var len16:Int32 = Int32(lenToSend)
-        NSLog("len: \(len16), accent pressed, umode: \(unicodeMode)")
+        print("len: \(len16), accent pressed, umode: \(unicodeMode)")
         
         accentSyllable(&buffer16, 0, &len16, Int32(accent), true, unicodeMode)
         
@@ -927,7 +927,7 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
             let db:HCDeleteButton = gestureReconizer.view as! HCDeleteButton
             db.touchUpInside1(sender: db)
         }
-        //NSLog(@"lg: %ld", (long)gesture.state);
+        //print(@"lg: %ld", (long)gesture.state);
     }
     
     @objc func spacePressed(_ button: UIButton) {

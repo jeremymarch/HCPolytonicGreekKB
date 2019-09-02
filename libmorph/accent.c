@@ -816,146 +816,7 @@ bool analyzePrecomposedLetter(unsigned short letter, int *l, int *a)
  
     return false;
 }
-/*
-int precomposedIndexToBitMask(int precomposedIndex, int diacriticMask)
-{
-    //don't initialize to false here because diacriticMask could have combining accents already set to true
-    //make sure this is in order of enum so compiler can optimize switch
-    switch (precomposedIndex)
-    {
-        case PSILI:
-        diacriticMask |= _SMOOTH;
-        break;
-        case DASIA:
-        diacriticMask |= _ROUGH;
-        break;
-        case OXIA: //both point to acute
-        case TONOS:
-        diacriticMask |= _ACUTE;
-        break;
-        case PSILI_AND_OXIA:
-        diacriticMask |= (_SMOOTH | _ACUTE);
-        break;
-        case DASIA_AND_OXIA:
-        diacriticMask |= (_ROUGH | _ACUTE);
-        break;
-        case VARIA:
-        diacriticMask |= _GRAVE;
-        break;
-        case PSILI_AND_VARIA:
-        diacriticMask |= (_SMOOTH | _GRAVE);
-        break;
-        case DASIA_AND_VARIA:
-        diacriticMask |= (_ROUGH | _GRAVE);
-        break;
-        case PERISPOMENI:
-        diacriticMask |= _CIRCUMFLEX;
-        break;
-        case PSILI_AND_PERISPOMENI:
-        diacriticMask |= (_SMOOTH | _CIRCUMFLEX);
-        break;
-        case DASIA_AND_PERISPOMENI:
-        diacriticMask |= (_ROUGH | _CIRCUMFLEX);
-        break;
-        case YPOGEGRAMMENI:
-        diacriticMask |= _IOTA_SUB;
-        break;
-        case PSILI_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_SMOOTH | _IOTA_SUB);
-        break;
-        case DASIA_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_ROUGH | _IOTA_SUB);
-        break;
-        case OXIA_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_ACUTE | _IOTA_SUB);
-        break;
-        case PSILI_AND_OXIA_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_SMOOTH | _ACUTE | _IOTA_SUB);
-        break;
-        case DASIA_AND_OXIA_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_ROUGH | _ACUTE | _IOTA_SUB);
-        break;
-        case VARIA_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_GRAVE | _IOTA_SUB);
-        break;
-        case PSILI_AND_VARIA_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_SMOOTH | _GRAVE | _IOTA_SUB);
-        break;
-        case DASIA_AND_VARIA_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_ROUGH | _GRAVE | _IOTA_SUB);
-        break;
-        case PERISPOMENI_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_CIRCUMFLEX | _IOTA_SUB);
-        break;
-        case PSILI_AND_PERISPOMENI_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_SMOOTH | _CIRCUMFLEX | _IOTA_SUB);
-        break;
-        case DASIA_AND_PERISPOMENI_AND_YPOGEGRAMMENI:
-        diacriticMask |= (_ROUGH | _CIRCUMFLEX | _IOTA_SUB);
-        break;
-        case DIALYTIKA:
-        diacriticMask |= _DIAERESIS;
-        break;
-        case DIALYTIKA_AND_TONOS: //for both
-        case DIALYTIKA_AND_OXIA:
-        diacriticMask |= (_DIAERESIS | _ACUTE);
-        break;
-        case DIALYTIKA_AND_VARIA:
-        diacriticMask |= (_DIAERESIS | _GRAVE);
-        break;
-        case DIALYTIKA_AND_PERISPOMENON:
-        diacriticMask |= (_DIAERESIS | _CIRCUMFLEX);
-        break;
-        case MACRON_PRECOMPOSED:
-        diacriticMask |= _MACRON;
-        break;
-#ifdef ALLOW_PRIVATE_USE_AREA
-        case MACRON_AND_SMOOTH:
-        diacriticMask |= (_MACRON | _SMOOTH);
-        break;
-        case MACRON_AND_SMOOTH_AND_ACUTE:
-        diacriticMask |= (_MACRON | _SMOOTH | _ACUTE);
-        break;
-        case MACRON_AND_SMOOTH_AND_GRAVE:
-        diacriticMask |= (_MACRON | _SMOOTH | _GRAVE);
-        break;
-        case MACRON_AND_ROUGH:
-        diacriticMask |= (_MACRON | _ROUGH);
-        break;
-        case MACRON_AND_ROUGH_AND_ACUTE:
-        diacriticMask |= (_MACRON | _ROUGH | _ACUTE);
-        break;
-        case MACRON_AND_ROUGH_AND_GRAVE:
-        diacriticMask |= (_MACRON | _ROUGH | _GRAVE);
-        break;
-        case MACRON_AND_ACUTE:
-        diacriticMask |= (_MACRON | _ACUTE);
-        break;
-        case MACRON_AND_GRAVE:
-        diacriticMask |= (_MACRON | _GRAVE);
-        break;
-#endif
-    }
-    return diacriticMask;
-}
- */
-/*
- //for testing
- //http://stackoverflow.com/questions/111928/is-there-a-printf-converter-to-print-in-binary-format
- const char *byte_to_binary(int x)
- {
- static char b[9];
- b[0] = '\0';
- 
- int z;
- for (z = 128; z > 0; z >>= 1)
- {
- strcat(b, ((x & z) == z) ? "1" : "0");
- }
- 
- return b;
- }
- */
+
 //return 0 for invalid letter
 unsigned short getPrecomposedLetter(int letterIndex, int diacriticMask)
 {
@@ -1672,6 +1533,20 @@ void accentSyllable(UCS2 *ucs2String, int i, int *len, int accentToAdd, bool tog
     //5. make room for letter or decrease it if it is shrinking
     splice(ucs2String, len, 1024, i, letterLen, buffer, newLetterLen);
 }
+/*
+int compare(char *s1, char *s2)
+{
+    UCS2 us1[strlen(s1)*2];
+    UCS2 us2[strlen(s2)*2];
+    int us1len = 0;
+    utf8_to_ucs2_string(s1, us1, &us1len);
+    int us2len = 0;
+    utf8_to_ucs2_string(s2, us2, &us2len);
+    //stripaccent
+    
+    return 0;
+}
+*/
 
 /*
  void accentSyllableUtf8(char *utf8, int accent, bool toggleOff)
