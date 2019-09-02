@@ -2,8 +2,7 @@
 #include "GreekUnicode.h"
 
 /*
-gcc -std=c99 checkVerbForms2.c ../libmorph.c ../GreekForms.c ../accent.c ../utilities.c ../augment.c ../ending.c -I.. -o checkVerbForms2
-./checkVerbForms2
+gcc -std=c99 tempMakeLookUp.c utilities.c accent.c -I.. -o mklup
 */
 #define ALLOW_PRIVATE_USE_AREA 1
 #define NUM_VOWEL_CODES 14
@@ -55,6 +54,51 @@ char *dn[] = { "NORMAL",
 #endif
 };
 
+char *dn2[] = { "0",
+ 	"_ACUTE",
+    "_ACUTE | _DIAERESIS",
+    "_SMOOTH",                                  //smooth
+    "_ROUGH",                                  //rough
+    "_ACUTE",
+    "_SMOOTH | _ACUTE",
+    "_ROUGH | _ACUTE",
+    "_GRAVE",
+    "_SMOOTH | _GRAVE",
+    "_ROUGH | _GRAVE",
+    "_CIRCUMFLEX",
+    "_SMOOTH | _CIRCUMFLEX",
+    "_ROUGH | _CIRCUMFLEX",
+    "_IOTA_SUB",
+    "_SMOOTH | _IOTA_SUB",
+    "_ROUGH | _IOTA_SUB",
+    "_ACUTE | _IOTA_SUB",
+    "_SMOOTH | _ACUTE | _IOTA_SUB",
+    "_ROUGH | _ACUTE | _IOTA_SUB",
+    "_GRAVE | _IOTA_SUB",
+    "_SMOOTH | _GRAVE | _IOTA_SUB",
+    "_ROUGH | _GRAVE | _IOTA_SUB",
+    "_CIRCUMFLEX | _IOTA_SUB",
+    "_SMOOTH | _CIRCUMFLEX | _IOTA_SUB",
+    "_ROUGH | _CIRCUMFLEX | _IOTA_SUB",
+    "_DIAERESIS",
+    "_DIAERESIS | _ACUTE",
+    "_DIAERESIS | _GRAVE",
+    "_DIAERESIS | _CIRCUMFLEX",
+    "_MACRON",
+#ifdef ALLOW_PRIVATE_USE_AREA
+    "_MACRON | _SMOOTH",
+    "_MACRON | _SMOOTH | _ACUTE",
+    "_MACRON | _SMOOTH | _GRAVE",
+    "_MACRON | _ROUGH",
+    "_MACRON | _ROUGH | _ACUTE",
+    "_MACRON | _ROUGH | _GRAVE",
+    "_MACRON | _ACUTE",
+    "_MACRON | _GRAVE"
+#endif
+};
+
+char *head[] = {"short basicGreekLookUp[][2] = {", "short extendedGreekLookUp[][2] = {", "short puaGreekLookUp[][2] = {"};
+
 int ranges[3][2] = { 
 	{ 0x0370, 0x03FF },
 	{ 0x1F00, 0x1FFF },
@@ -66,6 +110,8 @@ int main(int argc, char **argv)
 	//for each range
 	for (int a = 0; a < 3; a++)
 	{
+		printf("%s\n", head[a]);
+
 		for (int i = ranges[a][0]; i <= ranges[a][1]; i++)
 		{
 			int letter = 0;
@@ -96,18 +142,27 @@ int main(int argc, char **argv)
 			}
 			if (found)
 			{
-				printf("/* %04X */ { %s, %s },\n", i, ln[letter], dn[diacritic]);
+				printf("/* %04X */ { %s, %s }", i, ln[letter], dn2[diacritic]);
 			}
 			else
 			{
-				printf("/* %04X */ { %s, %s },\n", i, "NOCHAR", "NOCHAR");
+				printf("/* %04X */ { %s, %s }", i, "NOCHAR", "NOCHAR");
+			}
+
+			if (i == ranges[a][1])
+			{
+				printf("\n");
+			}
+			else
+			{
+				printf(",\n");
 			}
 			found = 0;
 			letter = 0;
 			diacritic = 0;
 		}
 
-		printf("\n\n\n");
+		printf("};\n\n");
 	}
-
+	return 0;
 }
