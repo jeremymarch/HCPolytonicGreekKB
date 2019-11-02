@@ -36,6 +36,7 @@ class HCMFButton: UIButton {
         
         backgroundColor = UIColor.white
         setTitleColor(hcorange, for: [])
+        titleLabel?.font = UIFont(name: "Helvetica", size: 16.0)
         
         self.addTarget(self, action: #selector(touchUpInside(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(touchUpOutside(sender:)), for: .touchUpOutside)

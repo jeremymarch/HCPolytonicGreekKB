@@ -97,6 +97,11 @@ class HCKeyboardView: UIView {
             delButtonWidth = buttonHeight
         }
         
+        if UIDevice.current.userInterfaceIdiom == .pad
+        {
+            sidePadding = buttonHSpacing
+        }
+        
         for (i, row) in buttons.enumerated()
         {
             numKeysInRow = row.count

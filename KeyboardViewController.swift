@@ -558,8 +558,8 @@ class KeyboardViewController: UIInputViewController, UIGestureRecognizerDelegate
         
         if UIDevice.current.userInterfaceIdiom == .pad
         {
-            portraitHeight = 380.0
-            landscapeHeight = 360.0
+            portraitHeight = 340.0
+            landscapeHeight = 290.0
         }
         else
         {
