@@ -40,6 +40,7 @@ class HCButton: UIButton {
     let vPadding:CGFloat = 8;
     let topMargin:CGFloat = 4;
     let buttonDownAddHeight:CGFloat = 62;
+    let fontName = "helvetica"
     
     let blueColor:UIColor = UIColor.init(red: 0/255.0, green: 122/255.0, blue: 255/255.0, alpha: 1.0)
     
@@ -60,7 +61,7 @@ class HCButton: UIButton {
         //backgroundColor = vbgColor
         setTitleColor(vtextColor, for: [])
         backgroundColor = UIColor.clear
-        self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
+        self.titleLabel!.font = UIFont(name: fontName, size: fontSize)
         
         self.addTarget(self, action: #selector(self.touchUpInside(sender:)), for: .touchUpInside)
         self.addTarget(self, action: #selector(self.touchUpOutside(sender:)), for: .touchUpOutside)
@@ -106,7 +107,7 @@ class HCButton: UIButton {
                 
                 let buttonFrame = CGRect(x:x, y:y, width:width, height:height)
                 self.frame = buttonFrame
-                self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
+                self.titleLabel!.font = UIFont(name: fontName, size: fontSize)
                 self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
             }
             setTitleColor(vtextColor, for: [])
@@ -145,7 +146,7 @@ class HCButton: UIButton {
                 self.frame = buttonFrame
                 
                 self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
-                self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: fontSize)
+                self.titleLabel!.font = UIFont(name: fontName, size: fontSize)
             }
             setTitleColor(vtextColor, for: [])
             
@@ -189,7 +190,7 @@ class HCButton: UIButton {
                 self.frame = buttonFrame
                 
                 self.titleEdgeInsets = UIEdgeInsets(top: -50, left: 0, bottom: 0, right: 0);
-                self.titleLabel!.font = UIFont(name: self.titleLabel!.font.fontName, size: downFontSize)
+                self.titleLabel!.font = UIFont(name: fontName, size: downFontSize)
                 setTitleColor(vtextColor, for: [])
             }
             else
